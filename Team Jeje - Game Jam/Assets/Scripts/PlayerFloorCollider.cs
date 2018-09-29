@@ -18,6 +18,9 @@ public class PlayerFloorCollider : MonoBehaviour
         // Check to see if we're hitting the floor
                                       // Jump
         if (collision.gameObject.layer == 8)
+        {
             playerStats.GetComponent<PlayerTracker>().m_grounded = true;
+            playerStats.GetComponent<PlayerTracker>().m_running = false;
+        }
     }
 }
