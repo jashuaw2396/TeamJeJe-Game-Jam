@@ -80,4 +80,9 @@ public class PlayerTracker : MonoBehaviour
             childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
     }
+    
+    public void Death()
+    {
+        m_isAlive = true;
+    }
 }
