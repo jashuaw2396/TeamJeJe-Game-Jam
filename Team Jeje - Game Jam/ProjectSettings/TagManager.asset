@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Floor
   - MovableObject
+  - PlayerTracker
+  - AdultPlayer
+  - ChildPlayer
   layers:
   - Default
   - TransparentFX

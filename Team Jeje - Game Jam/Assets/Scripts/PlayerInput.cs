@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour
     public bool m_grounded = true;
     public bool m_running = false;
 
-    public bool m_adult = false;
+    public bool m_adult = true;
     public bool m_movingObject = false;
 
     // Player stats
@@ -34,7 +34,7 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		// Make sure we're not dead
+        // Make sure we're not dead
         if (m_isAlive)
         {
             // Running button
@@ -59,7 +59,7 @@ public class PlayerInput : MonoBehaviour
             }
 
             // Jump check
-            if (Input.GetButtonDown("Jump") && m_grounded)
+            if (Input.GetButtonDown("Jump") && m_grounded && !m_movingObject)
             {
                 // Allow the player to jump
                 m_grounded = false;
@@ -71,30 +71,33 @@ public class PlayerInput : MonoBehaviour
     // Physics update
     private void FixedUpdate()
     {
-        // Only gets called whenever the player isn't staying still
-        if (Input.GetAxis("Horizontal") != 0 && (Input.GetKeyDown(KeyCode.A) != true && Input.GetKeyDown(KeyCode.D) != true))
+        if (m_isAlive)
         {
-            // Getting the input from the player
-            float moveHorizontal = Input.GetAxis("Horizontal");
-
-            // If we're walking
-            if (!m_running)
+            // Only gets called whenever the player isn't staying still
+            if (Input.GetAxis("Horizontal") != 0 && (Input.GetKeyDown(KeyCode.A) != true && Input.GetKeyDown(KeyCode.D) != true))
             {
-                // adding velocity
-                rb2d.velocity = new Vector2(moveHorizontal * m_walkSpeed, rb2d.velocity.y);
-                // now we're moving our object as well
-                if (movableObject != null)
-                    movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_walkSpeed, rb2d.velocity.y);
-            }
+                // Getting the input from the player
+                float moveHorizontal = Input.GetAxis("Horizontal");
 
-            // esle if we're running
-            else if (m_running)
-            {
-                // adding velocity
-                rb2d.velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
-                // now we're moving our object as well
-                if (movableObject != null)
-                    movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
+                // If we're walking
+                if (!m_running)
+                {
+                    // adding velocity
+                    rb2d.velocity = new Vector2(moveHorizontal * m_walkSpeed, rb2d.velocity.y);
+                    // now we're moving our object as well
+                    if (movableObject != null)
+                        movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_walkSpeed, rb2d.velocity.y);
+                }
+
+                // esle if we're running
+                else if (m_running)
+                {
+                    // adding velocity
+                    rb2d.velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
+                    // now we're moving our object as well
+                    if (movableObject != null)
+                        movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
+                }
             }
         }
     }
