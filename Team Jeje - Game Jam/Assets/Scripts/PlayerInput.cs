@@ -15,11 +15,19 @@ public class PlayerInput : MonoBehaviour
     public PlayerTracker m_playerStats;
 
     // Player stats
+<<<<<<< HEAD
     public float m_jumpHeight = 0;
     public float m_walkSpeed = 0;
     public float m_runningSpeed = 0;
     private float m_tempWalkSpeed = 0;
     private float m_tempRunningSpeed = 0;
+=======
+    public float m_jumpVelocity = 0;
+    public float m_fallMultiplier = 2.5f;
+    public float m_lowJumpMultiplier = 2f;
+    public int m_walkSpeed = 0;
+    public int m_runningSpeed = 0;
+>>>>>>> 67d8e41aa782722468eef9b03b0a83dcf49d8bd9
 
 
     // Use this for initialization
@@ -35,10 +43,26 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     public void PlayerUpdate()
     {
+        // Jump check
+        if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
+        {
+            // Allow the player to jump
+            m_playerStats.m_grounded = false;
+            rb2d.velocity = Vector2.up * m_jumpVelocity;
+        }
+
+        // When we're falling after letting go, apply down force
+        if (rb2d.velocity.y < 0)
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_fallMultiplier - 1) * Time.deltaTime;
+        
+        // When we press the jump button quickly, we apply the low jump force instead
+        else if (rb2d.velocity.y > 0 && !Input.GetButton("Jump"))
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1) * Time.deltaTime;
+
         // Running button
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !m_playerStats.m_running)
+        if (Input.GetKey(KeyCode.LeftShift) && !m_playerStats.m_running && m_playerStats.m_grounded)
             m_playerStats.m_running = true;
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running && m_playerStats.m_grounded)
             m_playerStats.m_running = false;
 
         // Moving button
@@ -57,14 +81,6 @@ public class PlayerInput : MonoBehaviour
                 m_walkSpeed = m_tempWalkSpeed;
                 m_runningSpeed = m_tempRunningSpeed;
             }
-        }
-
-        // Jump check
-        if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
-        {
-            // Allow the player to jump
-            m_playerStats.m_grounded = false;
-            rb2d.velocity = new Vector2(rb2d.velocity.x, m_jumpHeight);
         }
     }
 
