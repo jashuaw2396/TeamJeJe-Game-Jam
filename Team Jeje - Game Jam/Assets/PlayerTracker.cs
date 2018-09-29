@@ -83,6 +83,6 @@ public class PlayerTracker : MonoBehaviour
     
     public void Death()
     {
-        m_isAlive = true;
+        m_isAlive = false;
     }
 }
