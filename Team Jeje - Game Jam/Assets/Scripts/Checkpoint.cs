@@ -9,7 +9,7 @@ public class Checkpoint : MonoBehaviour
 
     private void Start()
     {
-        playerStats = GameObject.FindGameObjectWithTag("PlayerTrack").GetComponent<PlayerTracker>();
+        playerStats = GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

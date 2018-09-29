@@ -92,13 +92,25 @@ public class PlayerTracker : MonoBehaviour
         }
     }
 
+    public void Death()
+    {
+        m_isAlive = false;
+        Respawn();
+    }
+
     public void Respawn()
     {
         // Making the player alive
         m_isAlive = true;
-        // making sure we start as an adult
+        // Setting the adult playable
         m_adult = true;
-        // Setting back the position of the player
         adultPlayer.transform.position = m_checkpoint;
+        adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
+
+        // Setting the child off
+        // positioning
+        childPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
+        childPlayer.transform.position = new Vector3(0, 3);
+        childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     }
 }
