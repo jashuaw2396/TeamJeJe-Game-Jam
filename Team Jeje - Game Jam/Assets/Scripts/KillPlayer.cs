@@ -18,7 +18,7 @@ public class KillPlayer : MonoBehaviour {
     {
         if(collision.gameObject.layer == 9)
         {
-            GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>().m_isAlive = false;
+            GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>().Death();
         }
     }
 }
