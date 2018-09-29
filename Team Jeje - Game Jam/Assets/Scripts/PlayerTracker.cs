@@ -16,6 +16,13 @@ public class PlayerTracker : MonoBehaviour
     public bool m_adult = true;
     public bool m_movingObject = false;
 
+    // Adult position that gets tracked
+    [HideInInspector]
+    public Vector3 m_lastPosition;
+    // Checkpoint position
+    [HideInInspector]
+    public Vector3 m_checkpoint;
+
     private void Update()
     {
         // alive check
