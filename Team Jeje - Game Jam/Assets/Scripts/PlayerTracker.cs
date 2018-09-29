@@ -15,6 +15,7 @@ public class PlayerTracker : MonoBehaviour
     public bool m_running = false;
     public bool m_adult = true;
     public bool m_movingObject = false;
+    public bool m_canTransition = true;
 
     // Adult position that gets tracked
     [HideInInspector]
@@ -57,34 +58,47 @@ public class PlayerTracker : MonoBehaviour
 
     public void PlayerTransition()
     {
-        // if it's the adult player, we go to child
-        if (m_adult && m_isAlive)
+        if (m_canTransition)
         {
-            // Setting the child playable
-            m_adult = false;
-            childPlayer.transform.position = adultPlayer.transform.position;
-            childPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
+            // if it's the adult player, we go to child
+            if (m_adult && m_isAlive)
+            {
+                // Setting the child playable
+                m_adult = false;
+                childPlayer.transform.position = adultPlayer.transform.position;
+                childPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
 
-            // Setting the adult off
-            // positioning
-            adultPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
-            adultPlayer.transform.position = new Vector3(0, 3);
-            adultPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                // Setting the adult off
+                // positioning
+                adultPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
+                adultPlayer.transform.position = new Vector3(0, 3);
+                adultPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            }
+
+            // else if it's the child, we go to adult
+            else if (!m_adult && m_isAlive)
+            {
+                // Setting the adult playable
+                m_adult = true;
+                adultPlayer.transform.position = new Vector3(childPlayer.transform.position.x, -3);// childPlayer.transform.position;
+                adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
+
+                // Setting the child off
+                // positioning
+                childPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
+                childPlayer.transform.position = new Vector3(0, 3);
+                childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            }
         }
+    }
 
-        // else if it's the child, we go to adult
-        else if (!m_adult && m_isAlive)
-        {
-            // Setting the adult playable
-            m_adult = true;
-            adultPlayer.transform.position = childPlayer.transform.position;
-            adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
-
-            // Setting the child off
-            // positioning
-            childPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
-            childPlayer.transform.position = new Vector3(0, 3);
-            childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-        }
+    public void Respawn()
+    {
+        // Making the player alive
+        m_isAlive = true;
+        // making sure we start as an adult
+        m_adult = true;
+        // Setting back the position of the player
+        adultPlayer.transform.position = m_checkpoint;
     }
 }
