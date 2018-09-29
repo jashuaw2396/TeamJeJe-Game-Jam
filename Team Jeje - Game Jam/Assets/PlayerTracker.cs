@@ -9,27 +9,56 @@ public class PlayerTracker : MonoBehaviour
     // Child Player
     public GameObject childPlayer;
 
+    // Player Bools
+    public bool m_isAlive = true;
+    public bool m_grounded = true;
+    public bool m_running = false;
+    public bool m_adult = true;
+    public bool m_movingObject = false;
+
     private void Update()
     {
-        // Transition button
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        // alive check
+        if (m_isAlive)
         {
-            PlayerTransition();
+            // Transition button
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                PlayerTransition();
+            }
+
+            // Calling the update of the player that's being used
+            if (m_adult)
+                adultPlayer.GetComponent<PlayerInput>().PlayerUpdate();
+            else if (!m_adult)
+                childPlayer.GetComponent<PlayerInput>().PlayerUpdate();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        // alive check
+        if (m_isAlive)
+        {
+            // Calling the fixed update of the player that's being used
+            if (m_adult)
+                adultPlayer.GetComponent<PlayerInput>().PlayerFixedUpdate();
+            else if (!m_adult)
+                childPlayer.GetComponent<PlayerInput>().PlayerFixedUpdate();
         }
     }
 
     public void PlayerTransition()
     {
         // if it's the adult player, we go to child
-        if (adultPlayer.GetComponent<PlayerInput>().m_adult && adultPlayer.GetComponent<PlayerInput>().m_isAlive)
+        if (m_adult && m_isAlive)
         {
             // Setting the child playable
+            m_adult = false;
             childPlayer.transform.position = adultPlayer.transform.position;
-            childPlayer.GetComponent<PlayerInput>().m_isAlive = true;
             childPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
 
             // Setting the adult off
-            adultPlayer.GetComponent<PlayerInput>().m_isAlive = false;
             // positioning
             adultPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
             adultPlayer.transform.position = new Vector3(0, 3);
@@ -37,15 +66,14 @@ public class PlayerTracker : MonoBehaviour
         }
 
         // else if it's the child, we go to adult
-        else if (!childPlayer.GetComponent<PlayerInput>().m_adult && childPlayer.GetComponent<PlayerInput>().m_isAlive)
+        else if (!m_adult && m_isAlive)
         {
             // Setting the adult playable
+            m_adult = true;
             adultPlayer.transform.position = childPlayer.transform.position;
-            adultPlayer.GetComponent<PlayerInput>().m_isAlive = true;
             adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
 
             // Setting the child off
-            childPlayer.GetComponent<PlayerInput>().m_isAlive = false;
             // positioning
             childPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
             childPlayer.transform.position = new Vector3(0, 3);
