@@ -15,13 +15,15 @@ public class PlayerInput : MonoBehaviour
     public PlayerTracker m_playerStats;
 
     // Player stats
-    public int m_jumpHeight = 0;
-    public int m_walkSpeed = 0;
-    public int m_runningSpeed = 0;
+    public float m_jumpHeight = 0;
+    public float m_walkSpeed = 0;
+    public float m_runningSpeed = 0;
+    private float m_tempWalkSpeed = 0;
+    private float m_tempRunningSpeed = 0;
 
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
         // Getting the component of the rigid body
         rb2d = GetComponent<Rigidbody2D>();
@@ -51,6 +53,9 @@ public class PlayerInput : MonoBehaviour
                 movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 movableObject.transform.SetParent(null);
                 movableObject = null;
+
+                m_walkSpeed = m_tempWalkSpeed;
+                m_runningSpeed = m_tempRunningSpeed;
             }
         }
 
@@ -95,7 +100,7 @@ public class PlayerInput : MonoBehaviour
     }
 
     // Collision
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // We check to see if we're colliding with a movabe object
         if (m_playerStats.m_movingObject && collision.gameObject.tag == "MovableObject" && movableObject == null)
@@ -103,6 +108,12 @@ public class PlayerInput : MonoBehaviour
             movableObject = collision.gameObject;
             movableObject.GetComponent<Rigidbody2D>().isKinematic = false;
             movableObject.transform.SetParent(GetComponent<Transform>());
+
+            m_tempWalkSpeed = m_walkSpeed;
+            m_tempRunningSpeed = m_runningSpeed;
+            float tempDecimal = movableObject.GetComponent<MovableBox>().m_playerMovementSpeedDecimal;
+            m_walkSpeed = (m_walkSpeed * tempDecimal);
+            m_runningSpeed = (m_runningSpeed * tempDecimal);
         }
     }
 }

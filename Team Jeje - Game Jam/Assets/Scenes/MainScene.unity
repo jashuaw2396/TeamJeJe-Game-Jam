@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 248041}
   - component: {fileID: 248040}
   - component: {fileID: 248039}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChildPlayer
   m_TagString: ChildPlayer
   m_Icon: {fileID: 0}
@@ -144,11 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  m_isAlive: 0
-  m_grounded: 0
-  m_running: 0
-  m_adult: 0
-  m_movingObject: 0
+  m_playerStats: {fileID: 0}
   m_jumpHeight: 5
   m_walkSpeed: 5
   m_runningSpeed: 10
@@ -323,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57b5431c9cf8f84eaf87da7cd4d3d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 819962693}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57b5431c9cf8f84eaf87da7cd4d3d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 248038}
 --- !u!61 &584727872
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -602,7 +596,7 @@ GameObject:
   - component: {fileID: 819962695}
   - component: {fileID: 819962694}
   - component: {fileID: 819962698}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AdultPlayer
   m_TagString: AdultPlayer
   m_Icon: {fileID: 0}
@@ -726,11 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
-  m_isAlive: 1
-  m_grounded: 0
-  m_running: 0
-  m_adult: 1
-  m_movingObject: 0
+  m_playerStats: {fileID: 0}
   m_jumpHeight: 5
   m_walkSpeed: 5
   m_runningSpeed: 10
@@ -763,6 +753,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adultPlayer: {fileID: 819962693}
   childPlayer: {fileID: 248038}
+  m_isAlive: 1
+  m_grounded: 1
+  m_running: 0
+  m_adult: 1
+  m_movingObject: 0
 --- !u!4 &1475982114
 Transform:
   m_ObjectHideFlags: 0
