@@ -20,6 +20,7 @@ public class PlayerInput : MonoBehaviour
     public float m_lowJumpMultiplier = 2f;
     public float m_walkSpeed = 0;
     public float m_runningSpeed = 0;
+    public float m_climbSpeed = 0;
     private float m_tempWalkSpeed = 0;
     private float m_tempRunningSpeed = 0;
 
@@ -77,10 +78,6 @@ public class PlayerInput : MonoBehaviour
                 m_runningSpeed = m_tempRunningSpeed;
             }
         }
-     
-
-
-
     }
 
     // Physics update
@@ -120,7 +117,7 @@ public class PlayerInput : MonoBehaviour
             // Getting the input from the player
             float moveVertical = Input.GetAxis("Vertical");
             // adding velocity
-            rb2d.velocity = new Vector2(rb2d.velocity.x, moveVertical * m_walkSpeed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, moveVertical * m_climbSpeed);
         }
 
         else
