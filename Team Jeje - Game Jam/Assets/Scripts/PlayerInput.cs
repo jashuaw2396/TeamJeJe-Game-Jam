@@ -18,8 +18,6 @@ public class PlayerInput : MonoBehaviour
     public float m_jumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
-    public int m_runningSpeed = 0;
-    public float m_climbSpeed = 0;
 
 
     {
