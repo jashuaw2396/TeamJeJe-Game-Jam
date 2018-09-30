@@ -13,7 +13,7 @@ public class PlayerFloorCollider : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         // Check to see if we're hitting the floor
                                       // Jump
