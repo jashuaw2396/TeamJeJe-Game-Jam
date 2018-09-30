@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     public void PlayerUpdate()
     {
-        if (Time.timeScale <= 0)
+        if (Time.timeScale > 0)
         {
             // Jump check
             if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)

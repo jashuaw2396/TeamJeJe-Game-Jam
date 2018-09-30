@@ -17,7 +17,7 @@ public class Door : MonoBehaviour {
 	void Update () {
 
 
-        if (Time.timeScale <= 0)
+        if (Time.timeScale > 0)
         {
 
             if (open)

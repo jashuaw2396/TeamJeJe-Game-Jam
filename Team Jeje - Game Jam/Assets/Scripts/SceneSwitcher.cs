@@ -38,7 +38,7 @@ public class SceneSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale <= 0)
+        if (Time.timeScale > 0)
         {
             if (startLerp)
             {
