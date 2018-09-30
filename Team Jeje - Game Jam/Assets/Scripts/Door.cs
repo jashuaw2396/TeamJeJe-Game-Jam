@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour {
 
     public bool open = false;
+    public int m_doorNumber = 0;
     private bool wasOpen = false;
 
 	// Use this for initialization
