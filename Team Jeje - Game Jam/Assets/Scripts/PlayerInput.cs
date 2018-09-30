@@ -18,15 +18,21 @@ public class PlayerInput : MonoBehaviour
     public float m_jumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
+    public float m_walkSpeed = 0;
+    public float m_runningSpeed = 0;
+    private float m_tempWalkSpeed = 0;
+    private float m_tempRunningSpeed = 0;
 
 
+    // Use this for initialization
+    void Start()
     {
         // Getting the component of the rigid body
         rb2d = GetComponent<Rigidbody2D>();
 
         // Getting the stats class
         m_playerStats = GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>();
-	}
+    }
 
     // Update is called once per frame
     public void PlayerUpdate()
@@ -35,6 +41,7 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
         {
             // Allow the player to jump
+            rb2d.velocity = Vector2.up * m_jumpVelocity;
             m_playerStats.m_grounded = false;
         }
 
@@ -46,10 +53,11 @@ public class PlayerInput : MonoBehaviour
         else if (rb2d.velocity.y > 0 && !Input.GetButton("Jump"))
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1) * Time.deltaTime;
 
+
         // Running button
-        if (Input.GetKey(KeyCode.LeftShift) && !m_playerStats.m_running && m_playerStats.m_grounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !m_playerStats.m_running)
             m_playerStats.m_running = true;
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running && m_playerStats.m_grounded)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running)
             m_playerStats.m_running = false;
 
         // Moving button
@@ -69,6 +77,10 @@ public class PlayerInput : MonoBehaviour
                 m_runningSpeed = m_tempRunningSpeed;
             }
         }
+     
+
+
+
     }
 
     // Physics update
@@ -100,7 +112,6 @@ public class PlayerInput : MonoBehaviour
                     movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
             }
         }
-
         // Climbing ladders
         if (m_playerStats.m_canClimb)
         {
@@ -116,8 +127,8 @@ public class PlayerInput : MonoBehaviour
             rb2d.gravityScale = 1;
     }
 
-    // Collision
 
+    // Collision
     private void OnTriggerStay2D(Collider2D collision)
     {
         // We check to see if we're colliding with a movabe object
