@@ -43,36 +43,39 @@ public class PlayerTracker : MonoBehaviour
 
     private void Update()
     {
-        // alive check
-        if (m_isAlive)
+        if (Time.timeScale <= 0)
         {
-            // Transition button
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            // alive check
+            if (m_isAlive)
             {
-                PlayerTransition();
+                // Transition button
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    PlayerTransition();
+                }
+
+                // Calling the update of the player that's being used
+                if (m_adult)
+                    adultPlayer.GetComponent<PlayerInput>().PlayerUpdate();
+                else if (!m_adult)
+                    childPlayer.GetComponent<PlayerInput>().PlayerUpdate();
             }
 
-            // Calling the update of the player that's being used
-            if (m_adult)
-                adultPlayer.GetComponent<PlayerInput>().PlayerUpdate();
-            else if (!m_adult)
-                childPlayer.GetComponent<PlayerInput>().PlayerUpdate();
-        }
 
-
-        // Calling the respawn
-        if (startTimer)
-        {
-            // We start the timer
-            timer += Time.deltaTime;
-            // If the timer is done
-            if (timer >= maxRespawnTimer)
+            // Calling the respawn
+            if (startTimer)
             {
-                // We stop the timer
-                startTimer = false;
-                timer = 0;
-                // Call Respawn
-                Respawn();
+                // We start the timer
+                timer += Time.deltaTime;
+                // If the timer is done
+                if (timer >= maxRespawnTimer)
+                {
+                    // We stop the timer
+                    startTimer = false;
+                    timer = 0;
+                    // Call Respawn
+                    Respawn();
+                }
             }
         }
     }

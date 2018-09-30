@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour {
 
     public bool open = false;
+    public int m_doorNumber = 0;
     private bool wasOpen = false;
 
 	// Use this for initialization
@@ -15,20 +16,25 @@ public class Door : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (open)
+
+        if (Time.timeScale <= 0)
         {
-            if (!wasOpen)
+
+            if (open)
             {
-                OpenDoor();
-                wasOpen = true;
+                if (!wasOpen)
+                {
+                    OpenDoor();
+                    wasOpen = true;
+                }
             }
-        }
-        else
-        {
-            if (wasOpen)
+            else
             {
-                OpenDoor();
-                wasOpen = false;
+                if (wasOpen)
+                {
+                    OpenDoor();
+                    wasOpen = false;
+                }
             }
         }
 	}

@@ -38,34 +38,37 @@ public class SceneSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (startLerp)
+        if (Time.timeScale <= 0)
         {
-            currentLerpTime += Time.deltaTime;
-            if (currentLerpTime >= lerpTime)
+            if (startLerp)
             {
-                currentLerpTime = lerpTime;
-                startLerp = false;
-                //gameCamera.GetComponent<CameraFollow>().SceneSwitchUpdate(rightDirection);
-                rightDirection = !rightDirection;
+                currentLerpTime += Time.deltaTime;
+                if (currentLerpTime >= lerpTime)
+                {
+                    currentLerpTime = lerpTime;
+                    startLerp = false;
+                    //gameCamera.GetComponent<CameraFollow>().SceneSwitchUpdate(rightDirection);
+                    rightDirection = !rightDirection;
+                }
+
+                float percentage = currentLerpTime / lerpTime;
+                gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, endPos, percentage);
             }
 
-            float percentage = currentLerpTime / lerpTime;
-            gameCamera.transform.position = Vector3.Lerp(gameCamera.transform.position, endPos, percentage);
+            else
+                currentLerpTime = 0;
+
+            //if (startDelay)
+            //{
+            //    delayTimer += Time.deltaTime;
+            //    if (delayTimer >= 3)
+            //    {
+            //        delayTimer = 0;
+            //        gameCamera.GetComponent<CameraFollow>().cameraFollow = true;
+            //        startDelay = false;
+            //    }
+            //}
         }
-
-        else
-            currentLerpTime = 0;
-
-        //if (startDelay)
-        //{
-        //    delayTimer += Time.deltaTime;
-        //    if (delayTimer >= 3)
-        //    {
-        //        delayTimer = 0;
-        //        gameCamera.GetComponent<CameraFollow>().cameraFollow = true;
-        //        startDelay = false;
-        //    }
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
