@@ -13,7 +13,7 @@ public class LadderPlatform : MonoBehaviour
 
     private void Update()
     {
-        if (Time.timeScale <= 0)
+        if (Time.timeScale > 0)
         {
             if (Input.GetKey(KeyCode.W))
                 effector.rotationalOffset = 0;
