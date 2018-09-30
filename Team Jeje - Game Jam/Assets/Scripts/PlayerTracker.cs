@@ -8,6 +8,8 @@ public class PlayerTracker : MonoBehaviour
     public GameObject adultPlayer;
     // Child Player
     public GameObject childPlayer;
+    // Game camera
+    CameraFollow gameCamera;
 
     // Player Bools
     public bool m_isAlive = true;
@@ -24,6 +26,11 @@ public class PlayerTracker : MonoBehaviour
     // Checkpoint position
     [HideInInspector]
     public Vector3 m_checkpoint;
+
+    private void Start()
+    {
+        gameCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+    }
 
     private void Update()
     {
@@ -68,6 +75,7 @@ public class PlayerTracker : MonoBehaviour
                 m_adult = false;
                 childPlayer.transform.position = adultPlayer.transform.position;
                 childPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
+                gameCamera.target = childPlayer.transform;
 
                 // Setting the adult off
                 // positioning
@@ -83,6 +91,7 @@ public class PlayerTracker : MonoBehaviour
                 m_adult = true;
                 adultPlayer.transform.position = new Vector3(childPlayer.transform.position.x, -3);// childPlayer.transform.position;
                 adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
+                gameCamera.target = adultPlayer.transform;
 
                 // Setting the child off
                 // positioning
