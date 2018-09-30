@@ -23,4 +23,9 @@ public class PlayerFloorCollider : MonoBehaviour
             playerStats.GetComponent<PlayerTracker>().m_running = false;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        playerStats.GetComponent<PlayerTracker>().m_grounded = false;
+    }
 }

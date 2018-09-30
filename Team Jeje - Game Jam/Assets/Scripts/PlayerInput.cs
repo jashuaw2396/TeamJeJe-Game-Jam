@@ -15,7 +15,6 @@ public class PlayerInput : MonoBehaviour
     public PlayerTracker m_playerStats;
 
     // Player stats
-    public float yveloc;
     public float m_jumpVelocity = 0;
     public float m_bounceJumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
@@ -151,7 +150,6 @@ public class PlayerInput : MonoBehaviour
         if (collision.gameObject.tag == "Bouncer")
         {
             m_onBouncer = true;
-            yveloc = rb2d.velocity.y;
         }
     }
 
@@ -160,7 +158,7 @@ public class PlayerInput : MonoBehaviour
         if (collision.gameObject.tag == "Bouncer")
         {
             m_onBouncer = false;
-            if (yveloc > m_bounceJumpVelocity)
+            if (rb2d.velocity.y > m_bounceJumpVelocity)
                 
                 rb2d.velocity = new Vector2(rb2d.velocity.x, m_bounceJumpVelocity);
         }
