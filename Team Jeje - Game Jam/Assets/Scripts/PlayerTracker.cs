@@ -23,6 +23,7 @@ public class PlayerTracker : MonoBehaviour
     // Inventory
     public int InventorySize = 0;
     public int MaxInventory = 0;
+    private int currDoorIndex = 0;
 
     // Respawn timer
     private float timer = 0.0f;
@@ -36,9 +37,15 @@ public class PlayerTracker : MonoBehaviour
     [HideInInspector]
     public Vector3 m_checkpoint;
 
+    public List<Door> doorObjects;
+
     private void Start()
     {
+        doorObjects = new List<Door>();
         gameCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Door"))
+            doorObjects.Add(obj.GetComponent<Door>());
     }
 
     private void Update()
@@ -60,7 +67,6 @@ public class PlayerTracker : MonoBehaviour
                 else if (!m_adult)
                     childPlayer.GetComponent<PlayerInput>().PlayerUpdate();
             }
-
 
             // Calling the respawn
             if (startTimer)
@@ -164,6 +170,14 @@ public class PlayerTracker : MonoBehaviour
             InventorySize = 0;
 
             // Logic to turn on the door to progress
+
+            foreach (Door obj in doorObjects)
+                if (obj.m_doorNumber == currDoorIndex)
+                {
+                    obj.open = true;
+                    break;
+                }
+            currDoorIndex++;
         }
     }
 }

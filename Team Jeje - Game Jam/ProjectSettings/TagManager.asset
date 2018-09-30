@@ -11,6 +11,8 @@ TagManager:
   - ChildPlayer
   - Ladder
   - Bouncer
+  - Door
+  - SceneSwitcher
   layers:
   - Default
   - TransparentFX
