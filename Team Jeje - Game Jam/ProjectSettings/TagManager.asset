@@ -9,6 +9,7 @@ TagManager:
   - PlayerTracker
   - AdultPlayer
   - ChildPlayer
+  - Ladder
   layers:
   - Default
   - TransparentFX

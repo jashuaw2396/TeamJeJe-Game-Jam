@@ -18,8 +18,9 @@ public class PlayerInput : MonoBehaviour
     public float m_jumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
-    public int m_walkSpeed = 0;
-    public int m_runningSpeed = 0;
+    public float m_walkSpeed = 0;
+    public float m_runningSpeed = 0;
+    public float m_climbSpeed = 0;
 
 
 	// Use this for initialization
@@ -39,8 +40,8 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
         {
             // Allow the player to jump
-            m_playerStats.m_grounded = false;
             rb2d.velocity = Vector2.up * m_jumpVelocity;
+            m_playerStats.m_grounded = false;
         }
 
         // When we're falling after letting go, apply down force
@@ -102,6 +103,20 @@ public class PlayerInput : MonoBehaviour
                     movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(moveHorizontal * m_runningSpeed, rb2d.velocity.y);
             }
         }
+
+        // Climbing ladders
+        if (m_playerStats.m_canClimb)
+        {
+            // Stopping gravity
+            rb2d.gravityScale = 0.1f;
+            // Getting the input from the player
+            float moveVertical = Input.GetAxis("Vertical");
+            // adding velocity
+            rb2d.velocity = new Vector2(rb2d.velocity.x, moveVertical * m_walkSpeed);
+        }
+
+        else
+            rb2d.gravityScale = 1;
     }
 
     // Collision

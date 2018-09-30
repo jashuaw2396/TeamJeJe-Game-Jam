@@ -16,6 +16,7 @@ public class PlayerTracker : MonoBehaviour
     public bool m_adult = true;
     public bool m_movingObject = false;
     public bool m_canTransition = true;
+    public bool m_canClimb = false;
 
     // Adult position that gets tracked
     [HideInInspector]
