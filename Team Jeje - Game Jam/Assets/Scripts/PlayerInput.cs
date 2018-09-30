@@ -15,7 +15,9 @@ public class PlayerInput : MonoBehaviour
     public PlayerTracker m_playerStats;
 
     // Player stats
+    public float yveloc;
     public float m_jumpVelocity = 0;
+    public float m_bounceJumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
     public float m_walkSpeed = 0;
@@ -23,6 +25,7 @@ public class PlayerInput : MonoBehaviour
     public float m_climbSpeed = 0;
     private float m_tempWalkSpeed = 0;
     private float m_tempRunningSpeed = 0;
+    private bool m_onBouncer = false;
 
 
     // Use this for initialization
@@ -42,10 +45,13 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
         {
             // Allow the player to jump
-            rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
+            if (m_onBouncer)
+                rb2d.velocity = new Vector2(0, m_bounceJumpVelocity);
+            else
+                rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
             m_playerStats.m_grounded = false;
         }
-
+        
         // When we're falling after letting go, apply down force
         if (rb2d.velocity.y < 0)
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_fallMultiplier - 1) * Time.deltaTime;
@@ -140,6 +146,23 @@ public class PlayerInput : MonoBehaviour
             float tempDecimal = movableObject.GetComponent<MovableBox>().m_playerMovementSpeedDecimal;
             m_walkSpeed = (m_walkSpeed * tempDecimal);
             m_runningSpeed = (m_runningSpeed * tempDecimal);
+        }
+
+        if (collision.gameObject.tag == "Bouncer")
+        {
+            m_onBouncer = true;
+            yveloc = rb2d.velocity.y;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bouncer")
+        {
+            m_onBouncer = false;
+            if (yveloc > m_bounceJumpVelocity)
+                
+                rb2d.velocity = new Vector2(rb2d.velocity.x, m_bounceJumpVelocity);
         }
     }
 }
