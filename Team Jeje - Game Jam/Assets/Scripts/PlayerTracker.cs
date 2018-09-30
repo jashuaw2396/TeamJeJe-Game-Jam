@@ -20,6 +20,11 @@ public class PlayerTracker : MonoBehaviour
     public bool m_canTransition = true;
     public bool m_canClimb = false;
 
+    // Respawn timer
+    private float timer = 0.0f;
+    public float maxRespawnTimer = 0.0f;
+    bool startTimer = false;
+
     // Adult position that gets tracked
     [HideInInspector]
     public Vector3 m_lastPosition;
@@ -48,6 +53,23 @@ public class PlayerTracker : MonoBehaviour
                 adultPlayer.GetComponent<PlayerInput>().PlayerUpdate();
             else if (!m_adult)
                 childPlayer.GetComponent<PlayerInput>().PlayerUpdate();
+        }
+
+
+        // Calling the respawn
+        if (startTimer)
+        {
+            // We start the timer
+            timer += Time.deltaTime;
+            // If the timer is done
+            if (timer >= maxRespawnTimer)
+            {
+                // We stop the timer
+                startTimer = false;
+                timer = 0;
+                // Call Respawn
+                Respawn();
+            }
         }
     }
 
@@ -105,7 +127,9 @@ public class PlayerTracker : MonoBehaviour
     public void Death()
     {
         m_isAlive = false;
-        Respawn();
+        adultPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        startTimer = true;
     }
 
     public void Respawn()
