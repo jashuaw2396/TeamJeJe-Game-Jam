@@ -18,13 +18,10 @@ public class PlayerInput : MonoBehaviour
     public float m_jumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
-    public float m_walkSpeed = 0;
-    public float m_runningSpeed = 0;
+    public int m_runningSpeed = 0;
     public float m_climbSpeed = 0;
 
 
-	// Use this for initialization
-	void Start ()
     {
         // Getting the component of the rigid body
         rb2d = GetComponent<Rigidbody2D>();
@@ -40,14 +37,13 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
         {
             // Allow the player to jump
-            rb2d.velocity = Vector2.up * m_jumpVelocity;
             m_playerStats.m_grounded = false;
         }
 
         // When we're falling after letting go, apply down force
         if (rb2d.velocity.y < 0)
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_fallMultiplier - 1) * Time.deltaTime;
-        
+
         // When we press the jump button quickly, we apply the low jump force instead
         else if (rb2d.velocity.y > 0 && !Input.GetButton("Jump"))
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1) * Time.deltaTime;
@@ -70,6 +66,9 @@ public class PlayerInput : MonoBehaviour
                 movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
                 movableObject.transform.SetParent(null);
                 movableObject = null;
+
+                m_walkSpeed = m_tempWalkSpeed;
+                m_runningSpeed = m_tempRunningSpeed;
             }
         }
     }
@@ -120,7 +119,8 @@ public class PlayerInput : MonoBehaviour
     }
 
     // Collision
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         // We check to see if we're colliding with a movabe object
         if (m_playerStats.m_movingObject && collision.gameObject.tag == "MovableObject" && movableObject == null)
@@ -128,6 +128,12 @@ public class PlayerInput : MonoBehaviour
             movableObject = collision.gameObject;
             movableObject.GetComponent<Rigidbody2D>().isKinematic = false;
             movableObject.transform.SetParent(GetComponent<Transform>());
+
+            m_tempWalkSpeed = m_walkSpeed;
+            m_tempRunningSpeed = m_runningSpeed;
+            float tempDecimal = movableObject.GetComponent<MovableBox>().m_playerMovementSpeedDecimal;
+            m_walkSpeed = (m_walkSpeed * tempDecimal);
+            m_runningSpeed = (m_runningSpeed * tempDecimal);
         }
     }
 }

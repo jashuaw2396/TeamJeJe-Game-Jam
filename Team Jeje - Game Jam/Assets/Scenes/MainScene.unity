@@ -148,6 +148,7 @@ MonoBehaviour:
   m_jumpVelocity: 4
   m_fallMultiplier: 2.5
   m_lowJumpMultiplier: 2
+>>>>>>> 67d8e41aa782722468eef9b03b0a83dcf49d8bd9
   m_walkSpeed: 5
   m_runningSpeed: 10
   m_climbSpeed: 0
@@ -859,9 +860,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb2d: {fileID: 0}
   m_playerStats: {fileID: 0}
+<<<<<<< HEAD
+  m_jumpHeight: 5
+=======
   m_jumpVelocity: 5
   m_fallMultiplier: 2.5
   m_lowJumpMultiplier: 2
+>>>>>>> 67d8e41aa782722468eef9b03b0a83dcf49d8bd9
   m_walkSpeed: 5
   m_runningSpeed: 10
   m_climbSpeed: 0
@@ -899,10 +904,13 @@ MonoBehaviour:
   m_running: 0
   m_adult: 1
   m_movingObject: 0
+<<<<<<< HEAD
+=======
   m_canTransition: 1
   m_canClimb: 0
   m_lastPosition: {x: 0, y: 0, z: 0}
   m_checkpoint: {x: 0, y: 0, z: 0}
+>>>>>>> 67d8e41aa782722468eef9b03b0a83dcf49d8bd9
 --- !u!4 &1475982114
 Transform:
   m_ObjectHideFlags: 0
