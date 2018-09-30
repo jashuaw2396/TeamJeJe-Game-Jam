@@ -40,47 +40,50 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     public void PlayerUpdate()
     {
-        // Jump check
-        if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
+        if (Time.timeScale <= 0)
         {
-            // Allow the player to jump
-            if (m_onBouncer)
-                rb2d.velocity = new Vector2(0, m_bounceJumpVelocity);
-            else
-                rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
-            m_playerStats.m_grounded = false;
-        }
-        
-        // When we're falling after letting go, apply down force
-        if (rb2d.velocity.y < 0)
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_fallMultiplier - 1) * Time.deltaTime;
-
-        // When we press the jump button quickly, we apply the low jump force instead
-        else if (rb2d.velocity.y > 0 && !Input.GetButton("Jump"))
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1) * Time.deltaTime;
-
-
-        // Running button
-        if (Input.GetKey(KeyCode.LeftShift) && !m_playerStats.m_running && m_playerStats.m_grounded)
-            m_playerStats.m_running = true;
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running && m_playerStats.m_grounded)
-            m_playerStats.m_running = false;
-
-        // Moving button
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !m_playerStats.m_movingObject)
-            m_playerStats.m_movingObject = true;
-        else if (Input.GetKeyUp(KeyCode.Mouse1) && m_playerStats.m_movingObject)
-        {
-            m_playerStats.m_movingObject = false;
-            if (movableObject != null)
+            // Jump check
+            if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
             {
-                movableObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-                movableObject.transform.SetParent(null);
-                movableObject = null;
+                // Allow the player to jump
+                if (m_onBouncer)
+                    rb2d.velocity = new Vector2(0, m_bounceJumpVelocity);
+                else
+                    rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
+                m_playerStats.m_grounded = false;
+            }
 
-                m_walkSpeed = m_tempWalkSpeed;
-                m_runningSpeed = m_tempRunningSpeed;
+            // When we're falling after letting go, apply down force
+            if (rb2d.velocity.y < 0)
+                rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_fallMultiplier - 1) * Time.deltaTime;
+
+            // When we press the jump button quickly, we apply the low jump force instead
+            else if (rb2d.velocity.y > 0 && !Input.GetButton("Jump"))
+                rb2d.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1) * Time.deltaTime;
+
+
+            // Running button
+            if (Input.GetKey(KeyCode.LeftShift) && !m_playerStats.m_running && m_playerStats.m_grounded)
+                m_playerStats.m_running = true;
+            else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running && m_playerStats.m_grounded)
+                m_playerStats.m_running = false;
+
+            // Moving button
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !m_playerStats.m_movingObject)
+                m_playerStats.m_movingObject = true;
+            else if (Input.GetKeyUp(KeyCode.Mouse1) && m_playerStats.m_movingObject)
+            {
+                m_playerStats.m_movingObject = false;
+                if (movableObject != null)
+                {
+                    movableObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                    movableObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                    movableObject.transform.SetParent(null);
+                    movableObject = null;
+
+                    m_walkSpeed = m_tempWalkSpeed;
+                    m_runningSpeed = m_tempRunningSpeed;
+                }
             }
         }
     }

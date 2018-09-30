@@ -16,21 +16,23 @@ public class Platform : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
-        if (on)
+        if (Time.timeScale <= 0)
         {
-            if (!wasOn)
+            if (on)
             {
-                ChangeStatePlatform();
-                wasOn = true;
+                if (!wasOn)
+                {
+                    ChangeStatePlatform();
+                    wasOn = true;
+                }
             }
-        }
-        else
-        {
-            if (wasOn)
+            else
             {
-                ChangeStatePlatform();
-                wasOn = false;
+                if (wasOn)
+                {
+                    ChangeStatePlatform();
+                    wasOn = false;
+                }
             }
         }
     }
