@@ -20,6 +20,10 @@ public class PlayerTracker : MonoBehaviour
     public bool m_canTransition = true;
     public bool m_canClimb = false;
 
+    // Inventory
+    public int InventorySize = 0;
+    public int MaxInventory = 0;
+
     // Respawn timer
     private float timer = 0.0f;
     public float maxRespawnTimer = 0.0f;
@@ -146,5 +150,17 @@ public class PlayerTracker : MonoBehaviour
         childPlayer.GetComponent<Rigidbody2D>().isKinematic = true;
         childPlayer.transform.position = new Vector3(0, 3);
         childPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+    }
+
+    // Add the item to the list
+    public void PickupItem()
+    {
+        InventorySize++;
+        if (InventorySize >= MaxInventory)
+        {
+            InventorySize = 0;
+
+            // Logic to turn on the door to progress
+        }
     }
 }

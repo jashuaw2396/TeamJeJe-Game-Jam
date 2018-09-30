@@ -20,6 +20,8 @@ public class SceneSwitcher : MonoBehaviour
     //private bool startDelay = false;
     //private float delayTimer = 0;
 
+    public int itemCount = 0;
+
     // Bool used to see which direction we're heading
     public bool rightDirection = true;
     // Bool used to start lerp
@@ -89,6 +91,8 @@ public class SceneSwitcher : MonoBehaviour
                 // Start the lerp process
                 startLerp = true;
             }
+
+            GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>().MaxInventory = itemCount;
 
             //gameCamera.GetComponent<CameraFollow>().cameraFollow = false;
             //startDelay = true;
