@@ -42,7 +42,7 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetButtonDown("Jump") && m_playerStats.m_grounded && !m_playerStats.m_movingObject)
         {
             // Allow the player to jump
-            rb2d.velocity = Vector2.up * m_jumpVelocity;
+            rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
             m_playerStats.m_grounded = false;
         }
 
