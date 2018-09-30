@@ -10,7 +10,7 @@ TagManager:
   - AdultPlayer
   - ChildPlayer
   - Ladder
-  - SceneSwitcher
+  - Bouncer
   layers:
   - Default
   - TransparentFX

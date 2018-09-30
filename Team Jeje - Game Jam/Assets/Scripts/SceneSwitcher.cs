@@ -17,8 +17,8 @@ public class SceneSwitcher : MonoBehaviour
     // Current lerp time
     private float currentLerpTime = 0;
 
-    private bool startDelay = false;
-    private float delayTimer = 0;
+    //private bool startDelay = false;
+    //private float delayTimer = 0;
 
     // Bool used to see which direction we're heading
     public bool rightDirection = true;
