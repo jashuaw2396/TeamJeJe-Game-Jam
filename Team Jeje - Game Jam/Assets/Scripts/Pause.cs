@@ -5,11 +5,12 @@ using UnityEngine;
 public class Pause : MonoBehaviour {
 
     public bool m_paused = false;
+    public GameObject m_ui_menu;
 
     // Use this for initialization
     void Start ()
     {
-        
+        PauseGame();
     }
 	
 	// Update is called once per frame
@@ -31,12 +32,24 @@ public class Pause : MonoBehaviour {
     {
         Time.timeScale = 0;
         m_paused = true;
+        m_ui_menu.SetActive(true);
         //Disable scripts that still work while timescale is set to 0
     }
-    private void ContinueGame()
+    public void ContinueGame()
     {
         Time.timeScale = 1;
         m_paused = false;
+        m_ui_menu.SetActive(false);
         //enable the scripts again
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void SoundToggle()
+    {
+
     }
 }

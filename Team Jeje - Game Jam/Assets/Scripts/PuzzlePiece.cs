@@ -8,6 +8,8 @@ public class PuzzlePiece : MonoBehaviour {
     public GameObject m_connectedPosition;
 	// Use this for initialization
 	void Start () {
+
+
 		
 	}
 	

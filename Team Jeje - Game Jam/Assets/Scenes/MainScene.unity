@@ -594,7 +594,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -617,7 +617,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.47, y: 0.15, z: -10}
+  m_LocalPosition: {x: -49.57, y: 2.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -728,7 +728,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00012027845, y: 0}
+  m_Offset: {x: 0.000013124198, y: -0.01798648}
   m_SpriteTilingProperty:
     border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
@@ -739,7 +739,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.14388207, y: 0.16}
+  m_Size: {x: 0.1599561, y: 0.12412704}
   m_EdgeRadius: 0
 --- !u!50 &593492619
 Rigidbody2D:
@@ -1109,7 +1109,7 @@ Prefab:
     - target: {fileID: 114784587681412456, guid: 4e19c93ee0a80c4499dc3a7bef2d2195,
         type: 2}
       propertyPath: MaxInventory
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e19c93ee0a80c4499dc3a7bef2d2195, type: 2}
@@ -1415,11 +1415,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4924588254710508, guid: f9446b638cfeb3f408f74da13a7fc30c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -59.8
+      value: -49.98
       objectReference: {fileID: 0}
     - target: {fileID: 4924588254710508, guid: f9446b638cfeb3f408f74da13a7fc30c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.808
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 4924588254710508, guid: f9446b638cfeb3f408f74da13a7fc30c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1467,6 +1467,21 @@ Prefab:
         type: 2}
       propertyPath: m_bounceJumpVelocity
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114443929449899714, guid: f9446b638cfeb3f408f74da13a7fc30c,
+        type: 2}
+      propertyPath: m_jumpVelocity
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114443929449899714, guid: f9446b638cfeb3f408f74da13a7fc30c,
+        type: 2}
+      propertyPath: m_lowJumpMultiplier
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114443929449899714, guid: f9446b638cfeb3f408f74da13a7fc30c,
+        type: 2}
+      propertyPath: m_fallMultiplier
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9446b638cfeb3f408f74da13a7fc30c, type: 2}
