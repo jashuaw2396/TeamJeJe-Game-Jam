@@ -15,19 +15,17 @@ public class PlayerInput : MonoBehaviour
     public PlayerTracker m_playerStats;
 
     // Player stats
-<<<<<<< HEAD
+
     public float m_jumpHeight = 0;
     public float m_walkSpeed = 0;
     public float m_runningSpeed = 0;
     private float m_tempWalkSpeed = 0;
     private float m_tempRunningSpeed = 0;
-=======
     public float m_jumpVelocity = 0;
     public float m_fallMultiplier = 2.5f;
     public float m_lowJumpMultiplier = 2f;
-    public int m_walkSpeed = 0;
-    public int m_runningSpeed = 0;
->>>>>>> 67d8e41aa782722468eef9b03b0a83dcf49d8bd9
+
+
 
 
     // Use this for initialization
