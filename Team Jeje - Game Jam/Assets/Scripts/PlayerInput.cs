@@ -56,9 +56,9 @@ public class PlayerInput : MonoBehaviour
 
 
         // Running button
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !m_playerStats.m_running)
+        if (Input.GetKey(KeyCode.LeftShift) && !m_playerStats.m_running && m_playerStats.m_grounded)
             m_playerStats.m_running = true;
-        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running)
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && m_playerStats.m_running && m_playerStats.m_grounded)
             m_playerStats.m_running = false;
 
         // Moving button
