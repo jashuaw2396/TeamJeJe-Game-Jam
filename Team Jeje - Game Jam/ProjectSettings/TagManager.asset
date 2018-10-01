@@ -13,6 +13,7 @@ TagManager:
   - Bouncer
   - Door
   - SceneSwitcher
+  - AudioManager
   layers:
   - Default
   - TransparentFX

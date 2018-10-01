@@ -51,6 +51,7 @@ public class PlayerInput : MonoBehaviour
                 else
                     rb2d.velocity = new Vector2(0, m_jumpVelocity);// Vector2.up * m_jumpVelocity;
                 m_playerStats.m_grounded = false;
+                GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().landSound);
             }
 
             // When we're falling after letting go, apply down force

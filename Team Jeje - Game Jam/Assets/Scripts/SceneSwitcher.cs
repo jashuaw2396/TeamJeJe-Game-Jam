@@ -96,6 +96,7 @@ public class SceneSwitcher : MonoBehaviour
             }
 
             GameObject.FindGameObjectWithTag("PlayerTracker").GetComponent<PlayerTracker>().MaxInventory = itemCount;
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().doorOpen);
 
             //gameCamera.GetComponent<CameraFollow>().cameraFollow = false;
             //startDelay = true;

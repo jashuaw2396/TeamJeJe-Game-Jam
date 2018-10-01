@@ -124,7 +124,7 @@ public class PlayerTracker : MonoBehaviour
             {
                 // Setting the adult playable
                 m_adult = true;
-                adultPlayer.transform.position = new Vector3(childPlayer.transform.position.x, -3);// childPlayer.transform.position;
+                adultPlayer.transform.position = new Vector3(childPlayer.transform.position.x, -2);// childPlayer.transform.position;
                 adultPlayer.GetComponent<Rigidbody2D>().isKinematic = false;
                 gameCamera.target = adultPlayer.transform;
 
@@ -178,6 +178,9 @@ public class PlayerTracker : MonoBehaviour
                     break;
                 }
             currDoorIndex++;
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().achievement);
         }
+        else
+            GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().PlaySFX(GameObject.FindWithTag("AudioManager").GetComponent<AudioManager>().itemCollect);
     }
 }
